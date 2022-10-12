@@ -29,15 +29,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./modules/api/Dockerfile
-          platforms: linux/amd64
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/udaconnect-api:latest
-      -
-        name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: .
           file: ./modules/app/Dockerfile
           platforms: linux/amd64
           push: true
