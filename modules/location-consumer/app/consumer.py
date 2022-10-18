@@ -33,5 +33,7 @@ if __name__ == "__main__":
     while True:
         consumer.consume_from_kafka()
 
+    return 0
+
 
 
