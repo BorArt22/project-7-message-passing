@@ -2,3 +2,4 @@ grpcio==1.49.0
 grpcio-tools==1.49.0
 protobuf==4.21.7
 kafka-python==2.0.2
+logging==0.5.1.2
