@@ -11,8 +11,8 @@
 
 #cat ./db/udaconnect_public_location.sql | kubectl exec -i $1 -- bash -c "psql -U $CT_DB_USERNAME -d $CT_DB_NAME"
 
-cat ./db/2020-08-15_init-db.sql | kubectl exec -it postgres-554d66564b-5dqxv -- psql -h localhost -U ct_admin -d geoconnections
+cat ./db/2020-08-15_init-db.sql | kubectl exec -it postgres-554d66564b-nvk8f -- psql -h localhost -U ct_admin -d geoconnections
 
-cat ./db/udaconnect_public_person.sql | kubectl exec -it  postgres-554d66564b-5dqxv -- psql -h localhost -U ct_admin -d geoconnections
+cat ./db/udaconnect_public_person.sql | kubectl exec -it  postgres-554d66564b-nvk8f -- psql -h localhost -U ct_admin -d geoconnections
 
-cat ./db/udaconnect_public_location.sql | kubectl exec -it  postgres-554d66564b-5dqxv -- psql -h localhost -U ct_admin -d geoconnections
+cat ./db/udaconnect_public_location.sql | kubectl exec -it  postgres-554d66564b-nvk8f -- psql -h localhost -U ct_admin -d geoconnections
