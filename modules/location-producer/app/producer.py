@@ -8,6 +8,9 @@ logging.basicConfig(level=logging.INFO)
 KAFKA_HOST = os.environ["KAFKA_HOST"]
 KAFKA_TOPIC = os.environ["KAFKA_TOPIC_TEST"]
 
+KAFKA_HOST = str(f'{KAFKA_HOST}')
+print("KAFKA HOST",KAFKA_HOST)
+
 class Producer:
     def __init__(self):
         self._init_kafka_producer()
