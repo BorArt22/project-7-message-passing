@@ -33,8 +33,3 @@ class Producer:
 if __name__ == "__main__":
     producer = Producer()
     producer.publish_to_kafka(b'Test Message!!!')
-
-    logging.info('starting on port 5021')
-    server.add_insecure_port('[::]:5021')
-    server.start()
-    server.wait_for_termination()
