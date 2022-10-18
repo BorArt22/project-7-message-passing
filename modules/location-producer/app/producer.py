@@ -29,5 +29,3 @@ class Producer:
 if __name__ == "__main__":
     producer = Producer()
     producer.publish_to_kafka('Test Message!!!')
-
-    return 0 
