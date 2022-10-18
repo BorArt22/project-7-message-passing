@@ -1,6 +1,5 @@
 from kafka import KafkaProducer
 
-
 TOPIC_NAME = 'test'
 KAFKA_SERVER = 'kafka-service.kafka.svc.cluster.local:9092'
 

@@ -51,3 +51,23 @@ spec:
         - containerPort: 9092
 '''
 Again, we are creating two resources — service and deployment — for a single Kafka Broker. We run kubectl apply -f kafka.yaml. We verify this by seeing the pods in our namespace.
+
+# Creating a Kafka Topic
+
+Steps to create topic via commandline : (assumed zookeeper running on port 2181 and kafka server on 9092)
+
+Get inside the kafka pod by using this command
+kubectl exec -it kafka-pod-name -- /bin/bash
+
+Create the topic by using below command
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic <topic-name> --replication-factor 1 --partitions 3
+
+you can verify the message produce and consume using below commands-
+a) produce-->
+kafka-console-producer.sh --broker-list localhost:9092 --topic <topic-you-created-before>
+
+provide some message
+b) consume--> 
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic <topic-you-created-before> --from-beginning
+
+you can see the message(provided by producer) here
