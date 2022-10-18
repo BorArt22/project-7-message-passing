@@ -7,10 +7,31 @@ logging.basicConfig(level=logging.INFO)
 KAFKA_HOST = os.environ["KAFKA_HOST"]
 KAFKA_TOPIC = os.environ["KAFKA_TOPIC_TEST"]
 
-KAFKA_SERVER = KAFKA_HOST
-TOPIC_NAME = KAFKA_TOPIC
 
-consumer = KafkaConsumer(TOPIC_NAME,bootstrap_servers=KAFKA_SERVER)
-for message in consumer:
-    print (message)
-    logging.info(f"Consumed message {message} into topic {TOPIC_NAME}")
+class Consumer:
+
+    def __init__(self):
+        self._init_kafka_consumer()
+
+    def _init_kafka_consumer(self):
+        self.kafka_host = KAFKA_HOST
+        self.kafka_topic = KAFKA_TOPIC
+        self.consumer = KafkaConsumer(
+            self.kafka_topic,
+            bootstrap_servers=self.kafka_host,
+        )
+
+    def consume_from_kafka(self):
+        for message in self.consumer:
+            logging.info(message.value)
+
+
+if __name__ == "__main__":
+
+    consumer = Consumer()
+
+    while True:
+        consumer.consume_from_kafka()
+
+
+
