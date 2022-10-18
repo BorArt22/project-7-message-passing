@@ -2,36 +2,36 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: udaconnect-location-producer
-  name: udaconnect-location-producer
+    service: udaconnect-location-consumer
+  name: udaconnect-location-consumer
 spec:
   ports:
-  - name: "5021"
-    port: 5021
-    targetPort: 5021
-    nodePort: 30021
+  - name: "5022"
+    port: 5022
+    targetPort: 5022
+    nodePort: 30022
   selector:
-    service: udaconnect-location-producer
+    service: udaconnect-location-consumer
   type: NodePort
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: udaconnect-location-producer
-  name: udaconnect-location-producer
+    service: udaconnect-location-consumer
+  name: udaconnect-location-consumer
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: udaconnect-location-aproducerpi
+      service: udaconnect-location-consumer
   template:
     metadata:
       labels:
-        service: udaconnect-location-producer
+        service: udaconnect-location-consumer
     spec:
       containers:
-      - image: borart22/udaconnect-location-producer:latest
-        name: udaconnect-location-producer
+      - image: borart22/udaconnect-location-consumer:latest
+        name: udaconnect-location-consumer
         imagePullPolicy: Always
       restartPolicy: Always
