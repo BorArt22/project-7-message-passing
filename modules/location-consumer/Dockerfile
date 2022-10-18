@@ -5,7 +5,7 @@ WORKDIR .
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-EXPOSE 5021
+EXPOSE 5022
 
 COPY .
-ENTRYPOINT ["python", "app/producer.py"]
+ENTRYPOINT ["python", "app/consumer.py"]

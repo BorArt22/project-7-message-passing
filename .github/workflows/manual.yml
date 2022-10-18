@@ -44,5 +44,19 @@ jobs:
           context: ./modules/location_api
           platforms: linux/amd64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/udaconnect-location-api:latest            
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/udaconnect-location-api:latest
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: ./modules/location-producer
+          platforms: linux/amd64
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/udaconnect-location-producer:latest 
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: ./modules/location-consumer
+          platforms: linux/amd64
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/udaconnect-location-consumer:latest 
 
