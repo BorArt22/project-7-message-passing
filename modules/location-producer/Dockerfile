@@ -7,5 +7,4 @@ RUN pip install -r requirements.txt
 
 EXPOSE 5021
 
-COPY .
 ENTRYPOINT ["python", "app/producer.py"]
