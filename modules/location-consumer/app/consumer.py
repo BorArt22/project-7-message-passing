@@ -1,10 +1,14 @@
 from kafka import KafkaConsumer
 import logging
+import os
 
 logging.basicConfig(level=logging.INFO)
 
-TOPIC_NAME = 'test'
-KAFKA_SERVER = 'kafka-service.kafka.svc.cluster.local:9092'
+KAFKA_HOST = os.environ["KAFKA_HOST"]
+KAFKA_TOPIC = os.environ["KAFKA_TOPIC_TEST"]
+
+KAFKA_SERVER = KAFKA_HOST
+TOPIC_NAME = KAFKA_TOPIC
 
 consumer = KafkaConsumer(TOPIC_NAME,bootstrap_servers=KAFKA_SERVER)
 for message in consumer:

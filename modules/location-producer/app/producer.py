@@ -1,17 +1,20 @@
 from kafka import KafkaProducer
 from kafka.errors import KafkaError
 import logging
+import os
 
 logging.basicConfig(level=logging.INFO)
 
+KAFKA_HOST = os.environ["KAFKA_HOST"]
+KAFKA_TOPIC = os.environ["KAFKA_TOPIC_TEST"]
 
 class Producer:
     def __init__(self):
         self._init_kafka_producer()
 
     def _init_kafka_producer(self):
-        self.kafka_host = 'kafka-service.kafka.svc.cluster.local:9092'
-        self.kafka_topic = 'test'
+        self.kafka_host = KAFKA_HOST
+        self.kafka_topic = KAFKA_TOPIC
         self.producer = KafkaProducer(bootstrap_servers=self.kafka_host)
 
     def publish_to_kafka(self, message):

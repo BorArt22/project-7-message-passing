@@ -35,3 +35,14 @@ spec:
         name: udaconnect-location-producer
         imagePullPolicy: Always
       restartPolicy: Always
+      env:
+        - name: KAFKA_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: kafka-env
+              key: KAFKA_HOST
+        - name: KAFKA_TOPIC_TEST
+          valueFrom:
+            configMapKeyRef:
+              name: kafka-env
+              key: KAFKA_TOPIC_TEST
