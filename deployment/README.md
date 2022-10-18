@@ -1,3 +1,8 @@
+# Deploying a Kafka Broker
+
+We create a kafka.yaml file with the following contents, be we replace <ZOOKEEPER-INTERNAL-IP> with the CLUSTER-IP from the Zookeeper ip ('kubectl get services -n kafka'). The broker will fail to deploy if this step is not taken.
+
+'''
 apiVersion: v1
 kind: Service
 metadata:
@@ -34,7 +39,7 @@ spec:
         - name: KAFKA_BROKER_ID
           value: "1"
         - name: KAFKA_ZOOKEEPER_CONNECT
-          value: 10.43.171.80:2181
+          value: <ZOOKEEPER-INTERNAL-IP>:2181
         - name: KAFKA_LISTENERS
           value: PLAINTEXT://:9092
         - name: KAFKA_ADVERTISED_LISTENERS
@@ -44,3 +49,5 @@ spec:
         name: kafka-broker
         ports:
         - containerPort: 9092
+'''
+Again, we are creating two resources — service and deployment — for a single Kafka Broker. We run kubectl apply -f kafka.yaml. We verify this by seeing the pods in our namespace.
