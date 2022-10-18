@@ -8,4 +8,4 @@ RUN pip install -r requirements.txt
 EXPOSE 5021
 
 COPY . .
-ENTRYPOINT ["python", "app/producer.py", "echo 127.0.0.1 kafka-broker >> /etc/hosts"]
+ENTRYPOINT ["python", "app/producer.py"]
