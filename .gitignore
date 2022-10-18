@@ -124,3 +124,5 @@ app/app-test.db
 .vagrant
 .ds_store
 logs.txt
+log-producer.txt
+log-consumer.txt

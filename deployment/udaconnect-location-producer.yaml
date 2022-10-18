@@ -34,8 +34,7 @@ spec:
       - image: borart22/udaconnect-location-producer:latest
         name: udaconnect-location-producer
         imagePullPolicy: Always
-      restartPolicy: Always
-      env:
+        env:
         - name: KAFKA_HOST
           valueFrom:
             configMapKeyRef:
@@ -46,3 +45,4 @@ spec:
             configMapKeyRef:
               name: kafka-env
               key: KAFKA_TOPIC_TEST
+      restartPolicy: Always

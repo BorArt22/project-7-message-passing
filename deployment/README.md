@@ -57,10 +57,10 @@ Again, we are creating two resources — service and deployment — for a single
 Steps to create topic via commandline : (assumed zookeeper running on port 2181 and kafka server on 9092)
 
 Get inside the kafka pod by using this command
-kubectl exec -it kafka-pod-name -- /bin/bash
+kubectl exec -it <kafka-pod-name> -n kafka -- /bin/bash
 
 Create the topic by using below command
-kafka-topics.sh --bootstrap-server localhost:9092 --create --topic <topic-name> --replication-factor 1 --partitions 3
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic <topic-name>
 
 you can verify the message produce and consume using below commands-
 a) produce-->
