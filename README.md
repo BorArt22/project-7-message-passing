@@ -91,25 +91,25 @@ Afterwards, you can test that `kubectl` works by running a command like `kubectl
   ##### 10.1 `vagrant ssh` SSH into the vagrant box
   
   ##### 10.2 Install helm on the guest VM
-  '''
+  ```
   curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 
   chmod 700 get_helm.sh
 
   ./get_helm.sh
-  '''
+  ```
   
   ##### 10.3 `sudo su` Go to superuser
   
   ###### 10.4 Instal kafka
-  '''
+  ```
   helm repo add bitnami https://charts.bitnami.com/bitnami
 
   helm install udaconnect-kafka bitnami/kafka  --kubeconfig /etc/rancher/k3s/k3s.yaml 
-  '''
+  ```
   
   ##### 10.5 Copy the contents from the output issued from your own command into your clipboard -- we will be pasting from it somewhere soon!
-  '''
+  ```
   NAME: udaconnect-kafka
   LAST DEPLOYED: Wed Oct 19 06:59:08 2022
   NAMESPACE: default
@@ -148,7 +148,7 @@ Afterwards, you can test that `kubectl` works by running a command like `kubectl
               --bootstrap-server udaconnect-kafka.default.svc.cluster.local:9092 \
               --topic test \
               --from-beginning
-  '''
+  ```
   
   ##### 10.6 2 x `exit` Logout from vagrant box
   
@@ -157,12 +157,12 @@ Afterwards, you can test that `kubectl` works by running a command like `kubectl
   ##### 10.8 Wait until 'kafka-0' pod is in the running state
   
   ##### 10.9 Create topic 'location'
-  '''
+  ```
   kubectl exec -it udaconnect-kafka-0 -- kafka-topics.sh \
     --create --bootstrap-server udaconnect-kafka-headless:9092 \
     --replication-factor 1 --partitions 1 \
     --topic 'location'
-  '''
+  ```
 
 11. `kubectl apply -f deployment/kafka-configmap.yaml` - Set up environment variables for the pods
 12. `kubectl apply -f deployment/udaconnect-location-consumer.yaml`
