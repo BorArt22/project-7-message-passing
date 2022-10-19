@@ -8,4 +8,4 @@ RUN pip install -r requirements.txt
 EXPOSE 5022
 
 COPY . .
-ENTRYPOINT ["python", "app/consumer.py"]
+ENTRYPOINT ["python", "app/main.py"]
