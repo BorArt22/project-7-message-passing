@@ -1,4 +1,5 @@
 import logging
+import futures
 
 import grpc
 import location_pb2
@@ -19,7 +20,7 @@ class LocationIngesterServicer(location_pb2_grpc.LocationServiceServicer):
         return location_pb2.LocationMessage(**location_value)
 
 # Intiialize gRPC server
-server = grpc.server()
+server = grpc.server(futures.ThreadPoolExecutor(max_workers=2))
 location_pb2_grpc.add_LocationServiceServicer_to_server(LocationIngesterServicer(), server)
 
 logging.info(f"Startin gRPC server on 5021...")
