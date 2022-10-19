@@ -1,6 +1,7 @@
 import logging
 import random
 import faker
+from datetime import datetime
 
 import grpc
 import location_pb2
@@ -23,7 +24,8 @@ def random_float():
 location_value = location_pb2.LocationMessage(
     person_id=random_person(), 
     latitude=str(90*random_float()), 
-    longitude=str(180*random_float())
+    longitude=str(180*random_float()),
+    creation_time = str(datetime.utcnow)
 )
 
 logging.info(f"Sending data {location_value} to gRPC server")
