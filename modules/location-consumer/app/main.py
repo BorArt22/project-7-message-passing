@@ -11,10 +11,11 @@ KAFKA_HOST = os.environ["KAFKA_HOST"]
 KAFKA_TOPIC = os.environ["KAFKA_TOPIC_LOCATION"]
 
 consumer = KafkaConsumer(KAFKA_TOPIC, bootstrap_servers=[KAFKA_HOST])
-
+logging.info(f"Connected to kafka")
 
 while True:
     for message in consumer:
+        logging.info(f"Get message {message}")
         location_data = message.value.decode('utf-8')
         logging.info(f"Consumed message {location_data} from topic {KAFKA_TOPIC} succesefully")
         location: Location = LocationService.create(location_data)
