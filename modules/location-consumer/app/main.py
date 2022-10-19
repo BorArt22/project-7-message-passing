@@ -17,7 +17,7 @@ while True:
     for message in consumer:
         location_data = message.value.decode('utf-8')
         logging.info(f"Consumed message {location_data} from topic {KAFKA_TOPIC} succesefully")
-        location: Location = LocationService.create(location_value)
+        location: Location = LocationService.create(location_data)
         logging.info(f"Consumed message succesefully inserted to database")
 
 
