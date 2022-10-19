@@ -126,3 +126,4 @@ app/app-test.db
 logs.txt
 log-producer.txt
 log-consumer.txt
+modules/location-producer/app/*.ipynb
