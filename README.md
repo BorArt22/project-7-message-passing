@@ -18,6 +18,7 @@ To do so, ***you will refactor this application into a microservice architecture
 * [Vagrant](https://www.vagrantup.com/) - Tool for managing virtual deployed environments
 * [VirtualBox](https://www.virtualbox.org/) - Hypervisor allowing you to run multiple operating systems
 * [K3s](https://k3s.io/) - Lightweight distribution of K8s to easily develop against a local cluster
+* [Helm](https://helm.sh/docs/intro/install/) - manager Kubernetes applications — Helm Charts helps define, install, and upgrade even the most complex Kubernetes application.
 
 ## Running the app
 The project has been set up such that you should be able to have the project up and running with Kubernetes.
@@ -82,6 +83,76 @@ Afterwards, you can test that `kubectl` works by running a command like `kubectl
 4. `kubectl apply -f deployment/udaconnect-api.yaml` - Set up the service and deployment for the API
 5. `kubectl apply -f deployment/udaconnect-app.yaml` - Set up the service and deployment for the web app
 6. `sh scripts/run_db_command.sh <POD_NAME>` - Seed your database against the `postgres` pod. (`kubectl get pods` will give you the `POD_NAME`)
+7. Install and configure kafka in Kubernetes
+  7.1 `vagrant ssh` SSH into the vagrant box
+  7.2 Install helm on the guest VM
+  '''
+  curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+
+  chmod 700 get_helm.sh
+
+  ./get_helm.sh
+  '''
+  7.3 `sudo su` Go to superuser
+  7.4 Instal kafka
+  '''
+  helm repo add bitnami https://charts.bitnami.com/bitnami
+
+  helm install udaconnect-kafka bitnami/kafka  --kubeconfig /etc/rancher/k3s/k3s.yaml 
+  '''
+  7.5 Copy the contents from the output issued from your own command into your clipboard -- we will be pasting from it somewhere soon!
+  '''
+  NAME: udaconnect-kafka
+  LAST DEPLOYED: Wed Oct 19 06:59:08 2022
+  NAMESPACE: default
+  STATUS: deployed
+  REVISION: 1
+  TEST SUITE: None
+  NOTES:
+  CHART NAME: kafka
+  CHART VERSION: 19.0.0
+  APP VERSION: 3.3.1
+
+  ** Please be patient while the chart is being deployed **
+
+  Kafka can be accessed by consumers via port 9092 on the following DNS name from within your cluster:
+
+      udaconnect-kafka.default.svc.cluster.local
+
+  Each Kafka broker can be accessed by producers via port 9092 on the following DNS name(s) from within your cluster:
+
+      udaconnect-kafka-0.udaconnect-kafka-headless.default.svc.cluster.local:9092
+
+  To create a pod that you can use as a Kafka client run the following commands:
+
+      kubectl run udaconnect-kafka-client --restart='Never' --image docker.io/bitnami/kafka:3.3.1-debian-11-r1 --namespace default --command -- sleep infinity
+      kubectl exec --tty -i udaconnect-kafka-client --namespace default -- bash
+
+      PRODUCER:
+          kafka-console-producer.sh \
+
+              --broker-list udaconnect-kafka-0.udaconnect-kafka-headless.default.svc.cluster.local:9092 \
+              --topic test
+
+      CONSUMER:
+          kafka-console-consumer.sh \
+
+              --bootstrap-server udaconnect-kafka.default.svc.cluster.local:9092 \
+              --topic test \
+              --from-beginning
+  '''
+  7.6 2 x `exit` Logout from vagrant box
+  7.7 `kubectl get` pods verify the installation
+  7.8 Wait until 'kafka-0' pod is in the running state
+  7.9 Create topic 'location'
+  '''
+  kubectl exec -it udaconnect-kafka-0 -- kafka-topics.sh \
+    --create --bootstrap-server udaconnect-kafka-headless:9092 \
+    --replication-factor 1 --partitions 1 \
+    --topic 'location'
+  '''
+
+8. `kubectl apply -f deployment/kafka-configmap.yaml` - Set up environment variables for the pods
 
 Manually applying each of the individual `yaml` files is cumbersome but going through each step provides some context on the content of the starter project. In practice, we would have reduced the number of steps by running the command against a directory to apply of the contents: `kubectl apply -f deployment/`.
 
