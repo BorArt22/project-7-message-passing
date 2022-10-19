@@ -8,7 +8,7 @@ import location_pb2_grpc
 
 logging.basicConfig(level=logging.INFO)
 
-channel = grpc.insecure_channel("localhost:30021")
+channel = grpc.insecure_channel("localhost:5021")
 stub = location_pb2_grpc.LocationServiceStub(channel)
 
 fake = faker.Faker()
@@ -26,5 +26,6 @@ location_value = location_pb2.LocationMessage(
     longitude=str(180*random_float())
 )
 
+logging.info(f"Sending data {location_value} to gRPC server")
 response = stub.Create(location_value)
 logging.info(f"Response from gRPC server: {response}")
