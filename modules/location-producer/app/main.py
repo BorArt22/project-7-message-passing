@@ -1,5 +1,5 @@
 import logging
-import futures
+from concurrent import futures
 
 import grpc
 import location_pb2

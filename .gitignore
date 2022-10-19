@@ -127,3 +127,6 @@ logs.txt
 log-producer.txt
 log-consumer.txt
 modules/location-producer/app/*.ipynb
+modules/location-producer/app/test_getter.py
+modules/location-producer/app/test_writter.py
+modules/location-producer/app/test_main.py
