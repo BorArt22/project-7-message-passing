@@ -1,2 +1,32 @@
-import kafka_producer
+import logging
+
+import grpc
+import location_pb2
+import location_pb2_grpc
+
+from kafka_producer import publish_to_kafka
+
+logging.basicConfig(level=logging.INFO)
+
+class LocationIngesterServicer(location_pb2_grpc.LocationServiceServicer):
+    def Create(self, request, context):
+        location_value = {
+            "person_id": int(request.person_id),
+            "latitude": request.latitude,
+            "longitude": request.longitude
+        }
+        publish_to_kafka(location_value)
+        return location_pb2.LocationMessage(**location_value)
+
+# Intiialize gRPC server
+server = grpc.server()
+location_pb2_grpc.add_LocationServiceServicer_to_server(LocationIngesterServicer(), server)
+
+logging.info(f"Startin gRPC server on 5021...")
+server.add_insecure_port("[::]:5021")
+server.start()
+logging.info(f"gRPC server starts on 5021...")
+
+# Keep thread alive
+server.wait_for_termination()
 
