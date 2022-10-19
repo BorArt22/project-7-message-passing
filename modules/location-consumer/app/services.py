@@ -2,9 +2,9 @@ import logging
 from datetime import datetime, timedelta
 from typing import Dict, List
 
-from app.config import db
-from app.models import Location, Person
-from app.schemas import LocationSchema
+from config import db
+from models import Location, Person
+from schemas import LocationSchema
 from geoalchemy2.functions import ST_AsText, ST_Point
 from sqlalchemy.sql import text
 
