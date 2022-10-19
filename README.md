@@ -101,7 +101,7 @@ Afterwards, you can test that `kubectl` works by running a command like `kubectl
   
   ##### 10.3 `sudo su` Go to superuser
   
-  ###### 10.4 Instal kafka
+  ##### 10.4 Instal kafka
   ```
   helm repo add bitnami https://charts.bitnami.com/bitnami
 
