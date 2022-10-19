@@ -21,7 +21,7 @@ def random_person():
 def random_float():
     return fake.pyfloat(min_value=-1, max_value=1)
 
-location_value = location_pb2.LocationMessage(person_id=random_person(), latitude=90*random_float(), longitude=180*random_float())
+location_value = location_pb2.LocationMessage(person_id=random_person(), latitude=str(90*random_float()), longitude=str(180*random_float()))
 
 response = stub.Create(location_value)
 logging.info(f"Response from gRPC server: {response}")
