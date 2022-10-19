@@ -80,12 +80,15 @@ Afterwards, you can test that `kubectl` works by running a command like `kubectl
 1. `kubectl apply -f deployment/db-configmap.yaml` - Set up environment variables for the pods
 2. `kubectl apply -f deployment/db-secret.yaml` - Set up secrets for the pods
 3. `kubectl apply -f deployment/postgres.yaml` - Set up a Postgres database running PostGIS
-4. `kubectl apply -f deployment/udaconnect-api.yaml` - Set up the service and deployment for the API
-5. `kubectl apply -f deployment/udaconnect-app.yaml` - Set up the service and deployment for the web app
-6. `sh scripts/run_db_command.sh <POD_NAME>` - Seed your database against the `postgres` pod. (`kubectl get pods` will give you the `POD_NAME`)
-7. Install and configure kafka in Kubernetes
-  7.1 `vagrant ssh` SSH into the vagrant box
-  7.2 Install helm on the guest VM
+4. `kubectl apply -f deployment/udaconnect-api.yaml` - Set up the service and deployment for the API v1
+5. `kubectl apply -f deployment/udaconnect-location-api.yaml` - Set up the service and deployment for the Location API
+6. `kubectl apply -f deployment/udaconnect-person-api.yaml` - Set up the service and deployment for the Person API
+7. `kubectl apply -f deployment/udaconnect-connection-api.yaml` - Set up the service and deployment for the Connection API
+8. `kubectl apply -f deployment/udaconnect-app.yaml` - Set up the service and deployment for the web app
+9. `sh scripts/run_db_command.sh <POD_NAME>` - Seed your database against the `postgres` pod. (`kubectl get pods` will give you the `POD_NAME`)
+10. Install and configure kafka in Kubernetes
+  10.1 `vagrant ssh` SSH into the vagrant box
+  10.2 Install helm on the guest VM
   '''
   curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 
@@ -93,14 +96,14 @@ Afterwards, you can test that `kubectl` works by running a command like `kubectl
 
   ./get_helm.sh
   '''
-  7.3 `sudo su` Go to superuser
-  7.4 Instal kafka
+  10.3 `sudo su` Go to superuser
+  10.4 Instal kafka
   '''
   helm repo add bitnami https://charts.bitnami.com/bitnami
 
   helm install udaconnect-kafka bitnami/kafka  --kubeconfig /etc/rancher/k3s/k3s.yaml 
   '''
-  7.5 Copy the contents from the output issued from your own command into your clipboard -- we will be pasting from it somewhere soon!
+  10.5 Copy the contents from the output issued from your own command into your clipboard -- we will be pasting from it somewhere soon!
   '''
   NAME: udaconnect-kafka
   LAST DEPLOYED: Wed Oct 19 06:59:08 2022
@@ -141,10 +144,10 @@ Afterwards, you can test that `kubectl` works by running a command like `kubectl
               --topic test \
               --from-beginning
   '''
-  7.6 2 x `exit` Logout from vagrant box
-  7.7 `kubectl get` pods verify the installation
-  7.8 Wait until 'kafka-0' pod is in the running state
-  7.9 Create topic 'location'
+  10.6 2 x `exit` Logout from vagrant box
+  10.7 `kubectl get` pods verify the installation
+  10.8 Wait until 'kafka-0' pod is in the running state
+  10.9 Create topic 'location'
   '''
   kubectl exec -it udaconnect-kafka-0 -- kafka-topics.sh \
     --create --bootstrap-server udaconnect-kafka-headless:9092 \
@@ -152,7 +155,10 @@ Afterwards, you can test that `kubectl` works by running a command like `kubectl
     --topic 'location'
   '''
 
-8. `kubectl apply -f deployment/kafka-configmap.yaml` - Set up environment variables for the pods
+11. `kubectl apply -f deployment/kafka-configmap.yaml` - Set up environment variables for the pods
+12. `kubectl apply -f deployment/udaconnect-location-consumer.yaml`
+13. `kubectl apply -f deployment/udaconnect-location-producer.yaml`
+
 
 Manually applying each of the individual `yaml` files is cumbersome but going through each step provides some context on the content of the starter project. In practice, we would have reduced the number of steps by running the command against a directory to apply of the contents: `kubectl apply -f deployment/`.
 
