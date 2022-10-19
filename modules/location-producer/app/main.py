@@ -14,8 +14,7 @@ class LocationServicer(location_pb2_grpc.LocationServiceServicer):
         location_value = {
             "person_id": int(request.person_id),
             "latitude": request.latitude,
-            "longitude": request.longitude,
-            "creation_time": request.creation_time
+            "longitude": request.longitude
         }
         publish_to_kafka(location_value)
         return location_pb2.LocationMessage(**location_value)
