@@ -7,7 +7,7 @@ from kafka.errors import KafkaError
 logging.basicConfig(level=logging.INFO)
 
 KAFKA_HOST = os.environ["KAFKA_HOST"]
-KAFKA_TOPIC = os.environ["KAFKA_TOPIC_TEST"]
+KAFKA_TOPIC = os.environ["KAFKA_TOPIC_LOCATION"]
 
 class Producer:
     def __init__(self):
