@@ -88,9 +88,9 @@ Afterwards, you can test that `kubectl` works by running a command like `kubectl
 9. `sh scripts/run_db_command.sh <POD_NAME>` - Seed your database against the `postgres` pod. (`kubectl get pods` will give you the `POD_NAME`)
 10. Install and configure kafka in Kubernetes
 
-  #### 10.1 `vagrant ssh` SSH into the vagrant box
+  ##### 10.1 `vagrant ssh` SSH into the vagrant box
   
-  #### 10.2 Install helm on the guest VM
+  ##### 10.2 Install helm on the guest VM
   '''
   curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 
@@ -99,16 +99,16 @@ Afterwards, you can test that `kubectl` works by running a command like `kubectl
   ./get_helm.sh
   '''
   
-  #### 10.3 `sudo su` Go to superuser
+  ##### 10.3 `sudo su` Go to superuser
   
-  #### 10.4 Instal kafka
+  ###### 10.4 Instal kafka
   '''
   helm repo add bitnami https://charts.bitnami.com/bitnami
 
   helm install udaconnect-kafka bitnami/kafka  --kubeconfig /etc/rancher/k3s/k3s.yaml 
   '''
   
-  #### 10.5 Copy the contents from the output issued from your own command into your clipboard -- we will be pasting from it somewhere soon!
+  ##### 10.5 Copy the contents from the output issued from your own command into your clipboard -- we will be pasting from it somewhere soon!
   '''
   NAME: udaconnect-kafka
   LAST DEPLOYED: Wed Oct 19 06:59:08 2022
@@ -150,13 +150,13 @@ Afterwards, you can test that `kubectl` works by running a command like `kubectl
               --from-beginning
   '''
   
-  #### 10.6 2 x `exit` Logout from vagrant box
+  ##### 10.6 2 x `exit` Logout from vagrant box
   
-  #### 10.7 `kubectl get` pods verify the installation
+  ##### 10.7 `kubectl get` pods verify the installation
   
-  #### 10.8 Wait until 'kafka-0' pod is in the running state
+  ##### 10.8 Wait until 'kafka-0' pod is in the running state
   
-  #### 10.9 Create topic 'location'
+  ##### 10.9 Create topic 'location'
   '''
   kubectl exec -it udaconnect-kafka-0 -- kafka-topics.sh \
     --create --bootstrap-server udaconnect-kafka-headless:9092 \
