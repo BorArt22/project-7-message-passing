@@ -25,7 +25,7 @@ location_value = location_pb2.LocationMessage(
     person_id=random_person(), 
     latitude=str(90*random_float()), 
     longitude=str(180*random_float()),
-    creation_time = str(datetime.utcnow)
+    creation_time = str(datetime.utcnow.ToString("yyyy-MM-dd HH:mm:ss.fffffffK"))
 )
 
 logging.info(f"Sending data {location_value} to gRPC server")
