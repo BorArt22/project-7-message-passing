@@ -23,6 +23,5 @@ def random_float():
 
 location_value = location_pb2.LocationMessage(person_id=random_person(), latitude=90*random_float(), longitude=180*random_float())
 
-for location in location_value:
-    response = stub.Create(location)
-    logging.info(f"Response from gRPC server: {response}")
+response = stub.Create(location_value)
+logging.info(f"Response from gRPC server: {response}")
