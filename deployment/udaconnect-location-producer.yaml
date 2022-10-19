@@ -10,6 +10,7 @@ spec:
     port: 5021
     targetPort: 5021
     nodePort: 30021
+    protocol: TCP
   selector:
     service: udaconnect-location-producer
   type: NodePort
