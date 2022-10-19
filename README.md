@@ -167,6 +167,15 @@ Afterwards, you can test that `kubectl` works by running a command like `kubectl
 11. `kubectl apply -f deployment/kafka-configmap.yaml` - Set up environment variables for the pods
 12. `kubectl apply -f deployment/udaconnect-location-consumer.yaml`
 13. `kubectl apply -f deployment/udaconnect-location-producer.yaml`
+14. Test gRPC pipeline through kafka
+  ##### 14.1 `kubectl exec -it <location-producer-pod-name> sh` Go in location-producer (`kubectl get pods` will give you the `location-producer-pod-name`)
+  ##### 14.2 `python app/grpc_location_generator.py` Execute the grpc location generator with the command below 
+  ##### 14.3 Check logs
+  ```
+  kubectl logs -f <location-producer-pod-name>
+
+  kubectl logs -f <location-consumer-pod-name>
+  ```
 
 
 Manually applying each of the individual `yaml` files is cumbersome but going through each step provides some context on the content of the starter project. In practice, we would have reduced the number of steps by running the command against a directory to apply of the contents: `kubectl apply -f deployment/`.

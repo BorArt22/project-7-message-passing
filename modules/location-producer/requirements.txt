@@ -2,3 +2,4 @@ grpcio==1.49.0
 grpcio-tools==1.49.0
 kafka-python==2.0.2
 faker==15.1.1
+futures==2.2.0
