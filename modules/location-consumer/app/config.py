@@ -13,4 +13,4 @@ DB_NAME = os.environ["DB_NAME"]
 
 engine = sqlalchemy.create_engine(f"postgresql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
 Session = sessionmaker(bind=engine)
-Base = declarative_base()
+db = declarative_base()
