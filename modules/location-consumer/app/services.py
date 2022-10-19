@@ -2,7 +2,7 @@ import logging
 from datetime import datetime, timedelta
 from typing import Dict, List
 
-from config import db
+from config import Base, Session
 from models import Location, Person
 from schemas import LocationSchema
 from geoalchemy2.functions import ST_AsText, ST_Point
@@ -11,6 +11,7 @@ from sqlalchemy.sql import text
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger("udaconnect-location-consumer")
 
+db = Session()
 
 class LocationService:
     @staticmethod
