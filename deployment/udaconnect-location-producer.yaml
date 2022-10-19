@@ -40,9 +40,9 @@ spec:
             configMapKeyRef:
               name: kafka-env
               key: KAFKA_HOST
-        - name: KAFKA_TOPIC_TEST
+        - name: KAFKA_TOPIC_LOCATION
           valueFrom:
             configMapKeyRef:
               name: kafka-env
-              key: KAFKA_TOPIC_TEST
+              key: KAFKA_TOPIC_LOCATION
       restartPolicy: Always
