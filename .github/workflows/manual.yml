@@ -30,5 +30,11 @@ jobs:
           context: ./modules/person-api
           platforms: linux/amd64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/udaconnect-person-api:latest           
-
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/udaconnect-person-api:latest
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: ./modules/frontend
+          platforms: linux/amd64
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/udaconnect-app:latest

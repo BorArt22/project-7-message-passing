@@ -6,7 +6,7 @@ from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 from typing import Optional, List
 
-api = Namespace("UdaConnect-person", description="Connections via geolocation.")  # noqa
+api = Namespace("UdaConnect-person", description="Persons in UdaConnect.")  # noqa
 
 @api.route("/persons")
 class PersonsResource(Resource):
