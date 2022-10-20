@@ -31,5 +31,6 @@ def location_save_to_database(location_value, cursor):
                )
     try:
         cursor.execute(query)
+        cursor.execute('commit;')
     except Exception as exception:
         logger.warning(f"Invalid insert into database. Reason: {exception}")
