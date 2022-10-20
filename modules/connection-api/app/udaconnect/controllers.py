@@ -10,7 +10,7 @@ from typing import Optional, List
 
 DATE_FORMAT = "%Y-%m-%d"
 
-api = Namespace("UdaConnect Connection", description="Connections via geolocation.")  # noqa
+api = Namespace("UdaConnect-Connection", description="Connections via geolocation.")  # noqa
 
 @api.route("/persons/<person_id>/connection")
 @api.param("start_date", "Lower bound of date range", _in="query")
