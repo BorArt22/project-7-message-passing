@@ -2,7 +2,7 @@ name: UdaConnect - Package with Docker
 
 on:
   push:
-    branches: [ ]
+    branches: [ never]
 
 jobs:
   build:
