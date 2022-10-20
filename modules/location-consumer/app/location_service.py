@@ -23,7 +23,7 @@ def location_save_to_database(location_value, cursor):
 
     query = '''
     insert into public.location (person_id, coordinate, creation_time) 
-    values ({}, ST_Point({}, {}), {});
+    values ({}, ST_Point({}, {}), timestamp '{}');
     '''.format(int(location_dict["person_id"]), 
                location_dict["latitude"], 
                location_dict["longitude"],
