@@ -2,7 +2,7 @@ name: UdaConnect - Package with Docker
 
 on:
   push:
-    branches: [ main ]
+    branches: [ connection ]
 
 jobs:
   build:
@@ -23,14 +23,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and push
-        uses: docker/build-push-action@v3
-        with:
-          context: ./modules/api_v1
-          platforms: linux/amd64
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/udaconnect-api:latest          
+          password: ${{ secrets.DOCKERHUB_TOKEN }}   
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
@@ -41,29 +34,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: ./modules/location_api
-          platforms: linux/amd64
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/udaconnect-location-api:latest
-      - name: Build and push
-        uses: docker/build-push-action@v3
-        with:
-          context: ./modules/location-producer
-          platforms: linux/amd64
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/udaconnect-location-producer:latest 
-      - name: Build and push
-        uses: docker/build-push-action@v3
-        with:
-          context: ./modules/location-consumer
-          platforms: linux/amd64
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/udaconnect-location-consumer:latest 
-      - name: Build and push
-        uses: docker/build-push-action@v3
-        with:
           context: ./modules/person-api
           platforms: linux/amd64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/udaconnect-person-api:latest           
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/udaconnect-connection-api:latest           
 
