@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from app.udaconnect.models import Location
 from app.udaconnect.schemas import LocationSchema
 from app.udaconnect.services import LocationService
@@ -5,6 +7,8 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 from typing import Optional, List
+
+DATE_FORMAT = "%Y-%m-%d"
 
 api = Namespace("UdaConnect locations", description="Locations in UdaConnect.")  # noqa
 
