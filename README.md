@@ -3,12 +3,10 @@
 ### Background
 Conferences and conventions are hotspots for making connections. Professionals in attendance often share the same interests and can make valuable business and personal connections with one another. At the same time, these events draw a large crowd and it's often hard to make these connections in the midst of all of these events' excitement and energy. To help attendees make connections, we are building the infrastructure for a service that can inform attendees if they have attended the same booths and presentations at an event.
 
-### Goal
-You work for a company that is building a app that uses location data from mobile devices. Your company has built a [POC](https://en.wikipedia.org/wiki/Proof_of_concept) application to ingest location data named UdaTracker. This POC was built with the core functionality of ingesting location and identifying individuals who have shared a close geographic proximity.
+### Description
+UdaConnect uses location data from mobile devices. UdaConnect has been built a [POC](https://en.wikipedia.org/wiki/Proof_of_concept) application to ingest location data named UdaTracker. This POC was built with the core functionality of ingesting location and identifying individuals who have shared a close geographic proximity.
 
-Management loved the POC so now that there is buy-in, we want to enhance this application. You have been tasked to enhance the POC application into a [MVP](https://en.wikipedia.org/wiki/Minimum_viable_product) to handle the large volume of location data that will be ingested.
-
-To do so, ***you will refactor this application into a microservice architecture using message passing techniques that you have learned in this course***. It’s easy to get lost in the countless optimizations and changes that can be made: your priority should be to approach the task as an architect and refactor the application into microservices. File organization, code linting -- these are important but don’t affect the core functionality and can possibly be tagged as TODO’s for now!
+![Frontend application](docs/udaconnect-app.png)
 
 ### Technologies
 * [Flask](https://flask.palletsprojects.com/en/1.1.x/) - API webserver
@@ -19,6 +17,10 @@ To do so, ***you will refactor this application into a microservice architecture
 * [VirtualBox](https://www.virtualbox.org/) - Hypervisor allowing you to run multiple operating systems
 * [K3s](https://k3s.io/) - Lightweight distribution of K8s to easily develop against a local cluster
 * [Helm](https://helm.sh/docs/intro/install/) - manager Kubernetes applications — Helm Charts helps define, install, and upgrade even the most complex Kubernetes application.
+
+### Architecture
+
+![Architecture](docs/architecture_design.png)
 
 ## Running the app
 The project has been set up such that you should be able to have the project up and running with Kubernetes.
@@ -188,8 +190,11 @@ Note: The first time you run this project, you will need to seed the database wi
 
 ### Verifying it Works
 Once the project is up and running, you should be able to see 10 deployments and 13 services (+ `kubernetes`, `udaconnect-kafka-zookeeper-headless` and `udaconnect-kafka-headless`) in Kubernetes:
-`kubectl get pods` and `kubectl get services` - should both return `postgres`, `udaconnect-api`, `udaconnect-app`, `udaconnect-connection-api`, `udaconnect-kafka`, `udaconnect-kafka-zookeeper`, `udaconnect-location-api`, `udaconnect-location-consumer`, `udaconnect-location-producer` and `udaconnect-person-api`
+`kubectl get pods` looks like:
+![Pods](docs/pods_screenshot.PNG)
 
+`kubectl get services` looks like:
+![Services](docs/services_screenshot.PNG)
 
 These pages should also load on your web browser:
 * `http://localhost:30001/` - OpenAPI Documentation for API v1
@@ -206,19 +211,6 @@ These pages should also load on your web browser:
 You may notice the odd port numbers being served to `localhost`. [By default, Kubernetes services are only exposed to one another in an internal network](https://kubernetes.io/docs/concepts/services-networking/service/). This means that `udaconnect-app` and `udaconnect-api` can talk to one another. For us to connect to the cluster as an "outsider", we need to a way to expose these services to `localhost`.
 
 Connections to the Kubernetes services have been set up through a [NodePort](https://kubernetes.io/docs/concepts/services-networking/service/#nodeport). (While we would use a technology like an [Ingress Controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) to expose our Kubernetes services in deployment, a NodePort will suffice for development.)
-
-## Development
-### New Services
-New services can be created inside of the `modules/` subfolder. You can choose to write something new with Flask, copy and rework the `modules/api` service into something new, or just create a very simple Python application.
-
-As a reminder, each module should have:
-1. `Dockerfile`
-2. Its own corresponding DockerHub repository
-3. `requirements.txt` for `pip` packages
-4. `__init__.py`
-
-### Docker Images
-`udaconnect-app` and `udaconnect-api` use docker images from `udacity/nd064-udaconnect-app` and `udacity/nd064-udaconnect-api`. To make changes to the application, build your own Docker image and push it to your own DockerHub repository. Replace the existing container registry path with your own.
 
 ## Configs and Secrets
 In `deployment/db-secret.yaml`, the secret variable is `d293aW1zb3NlY3VyZQ==`. The value is simply encoded and not encrypted -- this is ***not*** secure! Anyone can decode it to see what it is.
@@ -245,12 +237,6 @@ This will enable you to connect to the database at `localhost`. You should then 
 To manually connect to the database, you will need software compatible with PostgreSQL.
 * CLI users will find [psql](http://postgresguide.com/utilities/psql.html) to be the industry standard.
 * GUI users will find [pgAdmin](https://www.pgadmin.org/) to be a popular open-source solution.
-
-## Architecture Diagrams
-Your architecture diagram should focus on the services and how they talk to one another. For our project, we want the diagram in a `.png` format. Some popular free software and tools to create architecture diagrams:
-1. [Lucidchart](https://www.lucidchart.com/pages/)
-2. [Google Docs](docs.google.com) Drawings (In a Google Doc, _Insert_ - _Drawing_ - _+ New_)
-3. [Diagrams.net](https://app.diagrams.net/)
 
 ## Tips
 * We can access a running Docker container using `kubectl exec -it <pod_id> sh`. From there, we can `curl` an endpoint to debug network issues.
