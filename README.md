@@ -86,6 +86,10 @@ Afterwards, you can test that `kubectl` works by running a command like `kubectl
 7. `kubectl apply -f deployment/udaconnect-connection-api.yaml` - Set up the service and deployment for the Connection API
 8. `kubectl apply -f deployment/udaconnect-app.yaml` - Set up the service and deployment for the web app
 9. `sh scripts/run_db_command.sh <POD_NAME>` - Seed your database against the `postgres` pod. (`kubectl get pods` will give you the `POD_NAME`)
+  or run next command:
+  `cat ./db/2020-08-15_init-db.sql | kubectl exec -it <POD_NAME> -- psql -h localhost -U ct_admin -d geoconnections`
+  `cat ./db/udaconnect_public_person.sql | kubectl exec -it  <POD_NAME> -- psql -h localhost -U ct_admin -d geoconnections`
+  `cat ./db/udaconnect_public_location.sql | kubectl exec -it  <POD_NAME> -- psql -h localhost -U ct_admin -d geoconnections`
 10. Install and configure kafka in Kubernetes
 
   ##### 10.1 `vagrant ssh` SSH into the vagrant box
@@ -108,7 +112,7 @@ Afterwards, you can test that `kubectl` works by running a command like `kubectl
   helm install udaconnect-kafka bitnami/kafka  --kubeconfig /etc/rancher/k3s/k3s.yaml 
   ```
   
-  ##### 10.5 Copy the contents from the output issued from your own command into your clipboard -- we will be pasting from it somewhere soon!
+  ##### 10.5 Save the contents from the output issued from your own command
   ```
   NAME: udaconnect-kafka
   LAST DEPLOYED: Wed Oct 19 06:59:08 2022
@@ -183,13 +187,19 @@ Manually applying each of the individual `yaml` files is cumbersome but going th
 Note: The first time you run this project, you will need to seed the database with dummy data. Use the command `sh scripts/run_db_command.sh <POD_NAME>` against the `postgres` pod. (`kubectl get pods` will give you the `POD_NAME`). Subsequent runs of `kubectl apply` for making changes to deployments or services shouldn't require you to seed the database again!
 
 ### Verifying it Works
-Once the project is up and running, you should be able to see 3 deployments and 3 services in Kubernetes:
-`kubectl get pods` and `kubectl get services` - should both return `udaconnect-app`, `udaconnect-api`, and `postgres`
+Once the project is up and running, you should be able to see 10 deployments and 13 services (+ `kubernetes`, `udaconnect-kafka-zookeeper-headless` and `udaconnect-kafka-headless`) in Kubernetes:
+`kubectl get pods` and `kubectl get services` - should both return `postgres`, `udaconnect-api`, `udaconnect-app`, `udaconnect-connection-api`, `udaconnect-kafka`, `udaconnect-kafka-zookeeper`, `udaconnect-location-api`, `udaconnect-location-consumer`, `udaconnect-location-producer` and `udaconnect-person-api`
 
 
 These pages should also load on your web browser:
-* `http://localhost:30001/` - OpenAPI Documentation
-* `http://localhost:30001/api/` - Base path for API
+* `http://localhost:30001/` - OpenAPI Documentation for API v1
+* `http://localhost:30001/api/` - Base path for API v1
+* `http://localhost:30011/` - OpenAPI Documentation for Location API
+* `http://localhost:30011/api/` - Base path for Location API
+* `http://localhost:30031/` - OpenAPI Documentation for Person API
+* `http://localhost:30031/api/` - Base path for Person API
+* `http://localhost:30041/` - OpenAPI Documentation for Connection API
+* `http://localhost:30041/api/` - Base path for Connection API
 * `http://localhost:30000/` - Frontend ReactJS Application
 
 #### Deployment Note

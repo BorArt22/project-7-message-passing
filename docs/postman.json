@@ -1,0 +1,279 @@
+{
+	"info": {
+		"_postman_id": "2d3795ee-490f-447f-8553-ab220b8657a8",
+		"name": "Udaconnect API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "24000296"
+	},
+	"item": [
+		{
+			"name": "API v1",
+			"item": [
+				{
+					"name": "http://localhost:30001/api/locations/:location_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30001/api/locations/:location_id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"locations",
+								":location_id"
+							],
+							"variable": [
+								{
+									"key": "location_id",
+									"value": "25"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:30001/api/persons/:person_id/connection?start_date=2020-01-01&end_date=2020-12-30&distance=5",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30001/api/persons/:person_id/connection?start_date=2020-01-01&end_date=2020-12-30&distance=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"persons",
+								":person_id",
+								"connection"
+							],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2020-01-01"
+								},
+								{
+									"key": "end_date",
+									"value": "2020-12-30"
+								},
+								{
+									"key": "distance",
+									"value": "5"
+								}
+							],
+							"variable": [
+								{
+									"key": "person_id",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:30001/api/persons/:person_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30001/api/persons/:person_id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"persons",
+								":person_id"
+							],
+							"variable": [
+								{
+									"key": "person_id",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:30001/api/persons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:30001/api/persons"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:30001/api/persons",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://localhost:30001/api/persons"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:30001/api/locations",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://localhost:30001/api/locations"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Connection API",
+			"item": [
+				{
+					"name": "http://localhost:30041/api/persons/:person_id/connection?start_date=2020-01-01&end_date=2020-12-30&distance=5",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30041/api/persons/:person_id/connection?start_date=2020-01-01&end_date=2020-12-30&distance=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30041",
+							"path": [
+								"api",
+								"persons",
+								":person_id",
+								"connection"
+							],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2020-01-01"
+								},
+								{
+									"key": "end_date",
+									"value": "2020-12-30"
+								},
+								{
+									"key": "distance",
+									"value": "5"
+								}
+							],
+							"variable": [
+								{
+									"key": "person_id",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Location API",
+			"item": [
+				{
+					"name": "http://localhost:30011/api/locations/25",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:30011/api/locations/25"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Person API",
+			"item": [
+				{
+					"name": "http://localhost:30031/api/persons/:person_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30031/api/persons/:person_id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30031",
+							"path": [
+								"api",
+								"persons",
+								":person_id"
+							],
+							"variable": [
+								{
+									"key": "person_id",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:30031/api/persons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:30031/api/persons"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:30031/api/persons",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://localhost:30031/api/persons"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "location_id",
+			"value": ":location_id"
+		},
+		{
+			"key": "start_date",
+			"value": "start_date"
+		},
+		{
+			"key": "end_date",
+			"value": "end_date"
+		},
+		{
+			"key": "distance",
+			"value": "distance"
+		}
+	]
+}

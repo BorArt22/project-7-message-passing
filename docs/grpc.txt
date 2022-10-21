@@ -1,0 +1,39 @@
+gRPC Documentation
+
+gRPC location message should contain next fileds:
+'''
+message LocationMessage {
+  int32 person_id = 1;
+  string latitude  = 2;
+  string longitude = 3;
+  string creation_time = 4;
+}
+'''
+
+Example of message next:
+'''
+{
+  person_id : '9',
+  latitude  : '82.419363',
+  longitude : '55.00395',
+  creation_time : '2020-10-11 08:32:44.983699',
+}
+
+
+gRPC server is hosted by 'udaconnect-location-producer' service on port 5021 in Kubernetes.
+
+Repository contains example of client server - ./modules/location-producer/app/grpc_location_generator.py
+
+For test, run next commands:
+
+  - `kubectl exec -it <location-producer-pod-name> sh` Go in location-producer (`kubectl get pods` will give you the `location-producer-pod-name`)
+  - `python app/grpc_location_generator.py` Execute the grpc location generator with the command below 
+  - Check logs
+  	```
+  	kubectl logs -f <location-producer-pod-name>
+
+  	kubectl logs -f <location-consumer-pod-name>
+  	```
+
+
+

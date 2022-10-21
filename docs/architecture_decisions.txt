@@ -1,0 +1,28 @@
+Architecture decision
+_____________________
+
+Here were realised next microservices:
+
+API v1 (REST API):
+- I saved the monolithe on old port for backward compatibility
+with API application.
+
+Location API (REST API):
+- In new architecture I left possibility of a loading Location ID 
+from the database through REST API.
+
+Location Producer (gRPC + Message Queue (Kafka)):
+- Loading location data supposed handling the large volume of data. 
+Therefore in new architecture I realised loading new location using 
+gRPC (compared to REST, gRPC provides greater performance) 
+and Kafka (improve reliability at the large volume of data).
+
+Person API (REST API):
+- There were no requirements to accept a large amount of data. 
+Therefore, created a separate service without changes.
+
+Connection API (REST API):
+- Created a separate service without changes.
+
+Frontend (REST API):
+- Ports were changed for loading data from Person API and Connection API.
